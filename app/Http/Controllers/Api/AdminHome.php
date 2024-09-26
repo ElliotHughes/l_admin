@@ -9,7 +9,8 @@ class AdminHome extends Controller
 {
     public function index()
     {
-        $result = DB::table('users')->select()->get()->toArray();
-        return response()->json($result);
+        $result = Db::table('users')->select()->get();
+
+        return $this->success($result);
     }
 }
