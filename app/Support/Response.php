@@ -4,6 +4,7 @@
  */
 namespace App\Support;
 
+use AllowDynamicProperties;
 use Illuminate\Support\Facades\DB;
 
 class Response
@@ -58,18 +59,37 @@ class Response
      */
     private $output;
 
+    private $orginResponse;
+
+    /**
+     * @return \Illuminate\Http\Response
+     */
+    public function getOrginResponse()
+    {
+        return $this->orginResponse;
+    }
+
+    /**
+     * @param mixed $orginResponse
+     */
+    public function setOrginResponse($orginResponse): void
+    {
+        $this->orginResponse = $orginResponse;
+    }
+
 
     public function __construct()
     {
+        $this->setOrginResponse(response(''));
     }
 
     /**
      * 设置数据
-     * @param $data  原始数据
-     * @param $fields  transformer 中只需要显示的特定字段
+     * @param array $data 原始数据
      * @throws \Exception
+     * @return void
      */
-    public function setData($data, $fields)
+    public function setData(array $data): void
     {
         $this->data = $data;
     }
@@ -157,14 +177,12 @@ class Response
     {
         if (is_null($data)) {
             $this->setData(
-                (object)[],
-                $fields
+                []
             );
         }
         if (!is_null($data) && !is_bool($data)) {
             $this->setData(
-                $data,
-                $fields
+                $data
             );
         }
 

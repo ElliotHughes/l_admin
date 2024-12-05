@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Jobs\ProcessPodcast;
 use App\Jobs\users;
+use App\Models\Brother;
 use App\Models\Podcast;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class AdminHome extends Controller
 {
@@ -26,5 +25,17 @@ class AdminHome extends Controller
         ];
         ProcessPodcast::dispatch($res);
         return $this->success($res);
+    }
+
+    public function brotherList(Request $request)
+    {
+        $res = Brother::all()->toArray();
+        return $this->success($res);
+    }
+
+    public function addBrother(Request $request)
+    {
+        $name = $request->post('name');
+        $ip = Request::ip();
     }
 }
