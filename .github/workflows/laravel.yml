@@ -24,4 +24,4 @@ jobs:
       - name: Deploy and restart
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "cd ${{ secrets.SERVER_PATH }} && \
-            git pull origin main
+            git pull origin main"
